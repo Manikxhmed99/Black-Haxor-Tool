@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Haxor Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f14;
+      --card: #111820;
+      --accent: #00ffe7;
+      --border: #1e2b3a;
+      --hover: #1a252f;
+      --text-main: #c8f6f4;
+      --text-sub: #6f9ea7;
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Orbitron', monospace;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(to right, #000000, #0a0f14);
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.1);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px #00ffe7aa;
+    }
+    header p {
+      color: var(--text-sub);
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 1.2rem;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 10px #00000055;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, var(--accent) 30%, transparent);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+      opacity: 0.1;
+    }
+    .tool-card:hover::before {
+      left: 100%;
+    }
+    .tool-card:hover {
+      background-color: var(--hover);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px #00ffe755;
+    }
+    .tool-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    .tool-card p {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+    }
+    .tool-card input, .tool-card textarea, .tool-card button, .tool-card select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #0d1117;
+      color: #00ffe7;
+    }
+    .tool-card button {
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .tool-card button:hover {
+      background: #00cfcf;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      background: #000;
+      border-top: 2px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Black Haxor Tools</h1>
+    <p>50+ Cyber & Utility Tools - Free, Fast, Ethical</p>
+  </header>
+  <main class="container">
+    <div class="tool-card">
+      <h2>IP Address Lookup</h2>
+      <button onclick="getIP()">Get My IP</button>
+      <p id="ipResult"></p>
+    </div>
+    <div class="tool-card">
+      <h2>Hash Generator</h2>
+      <input type="text" id="hashInput" placeholder="Enter text...">
+      <button onclick="generateHash()">Generate Hash</button>
+      <p id="md5"></p>
+      <p id="sha1"></p>
+      <p id="sha256"></p>
+    </div>
+    <div class="tool-card">
+      <h2>Base64 Encoder/Decoder</h2>
+      <textarea id="base64Input" rows="3" placeholder="Enter text..."></textarea>
+      <button onclick="encodeBase64()">Encode</button>
+      <button onclick="decodeBase64()">Decode</button>
+      <p id="base64Output"></p>
+    </div>
+    <div class="tool-card">
+      <h2>QR Code Generator</h2>
+      <input type="text" id="qrInput" placeholder="Enter text or URL...">
+      <button onclick="generateQR()">Generate QR</button>
+      <div id="qrCode" style="margin-top:10px;"></div>
+    </div>
+    <div class="tool-card">
+      <h2>Password Generator</h2>
+      <input type="number" id="passLength" placeholder="Length (e.g., 12)" min="4" max="50">
+      <button onclick="generatePassword()">Generate</button>
+      <p id="passwordOutput"></p>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 Black Haxor Tools. Built for education & ethical testing.
+  </footer>
+  <script>
+    function getIP() {
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('ipResult').textContent = `Your IP: ${data.ip}`;
+        });
+    }
+
+    async function generateHash() {
+      const text = document.getElementById('hashInput').value;
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const md5 = await crypto.subtle.digest('MD5', data);
+      const sha1 = await crypto.subtle.digest('SHA-1', data);
+      const sha256 = await crypto.subtle.digest('SHA-256', data);
+      document.getElementById('md5').textContent = `MD5: ${hex(md5)}`;
+      document.getElementById('sha1').textContent = `SHA1: ${hex(sha1)}`;
+      document.getElementById('sha256').textContent = `SHA256: ${hex(sha256)}`;
+    }
+
+    function hex(buffer) {
+      return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function encodeBase64() {
+      const input = document.getElementById('base64Input').value;
+      document.getElementById('base64Output').textContent = btoa(input);
+    }
+
+    function decodeBase64() {
+      const input = document.getElementById('base64Input').value;
+      try {
+        document.getElementById('base64Output').textContent = atob(input);
+      } catch (e) {
+        document.getElementById('base64Output').textContent = 'Invalid Base64!';
+      }
+    }
+
+    function generateQR() {
+      const text = document.getElementById('qrInput').value;
+      const qrDiv = document.getElementById('qrCode');
+      qrDiv.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=150x150" alt="QR Code">`;
+    }
+
+    function generatePassword() {
+      const length = parseInt(document.getElementById('passLength').value) || 12;
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+      let pass = "";
+      for (let i = 0; i < length; i++) {
+        pass += chars[Math.floor(Math.random() * chars.length)];
+      }
+      document.getElementById('passwordOutput').textContent = `Password: ${pass}`;
+    }
+  </script>
+</body>
+</html>
