@@ -1,228 +1,227 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Black Haxor Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <title>Black Haxor Info Tools</title>
   <style>
-    body {
-      background-color: #000;
-      color: #00ff00;
-      font-family: 'Orbitron', sans-serif;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .tool-box {
-      border: 1px solid #00ff00;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ff00;
-    }
-    input, textarea, select, button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      background: #111;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      border-radius: 5px;
-    }
-    button:hover {
-      background: #00ff00;
-      color: #000;
-      font-weight: bold;
-    }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid #00ff00;
-      color: #00ff00;
-    }
+    body { background: #111; color: #eee; font-family: Arial; padding: 20px; }
+    h2 { color: #0ff; border-bottom: 1px solid #333; padding-bottom: 5px; }
+    input, button { padding: 10px; margin: 5px 0; width: 100%; border-radius: 5px; }
+    textarea, pre { background: #222; color: #0f0; padding: 10px; border-radius: 5px; width: 100%; }
+    .tool { margin-bottom: 40px; border: 1px solid #333; padding: 10px; border-radius: 10px; }
   </style>
 </head>
 <body>
-  <h1>🛡️ Black Haxor Tools</h1>  <div class="tool-box">
-    <h2>CVE Info Search</h2>
-    <input id="cve-id" placeholder="Enter CVE ID (e.g. CVE-2021-34527)">
-    <button onclick="searchCVE()">Search CVE</button>
-    <textarea id="cve-result" rows="4" readonly></textarea>
-  </div>  <div class="tool-box">
-    <h2>Reflected XSS Detector</h2>
-    <input id="xss-input" placeholder="Enter suspicious URL">
-    <button onclick="detectXSS()">Detect XSS</button>
-    <textarea id="xss-result" readonly></textarea>
-  </div>  <div class="tool-box">
-    <h2>IP Logger</h2>
-    <button onclick="logIP()">Log My IP</button>
-    <textarea id="ip-log" readonly></textarea>
-  </div>  <div class="tool-box">
-    <h2>EXIF Viewer</h2>
-    <input type="file" id="exif-file" accept="image/*">
-    <textarea id="exif-data" readonly></textarea>
-  </div>  <div class="tool-box">
-    <h2>Email Finder</h2>
-    <input id="name-input" placeholder="Enter name or username">
-    <button onclick="findEmail()">Find Email</button>
-    <textarea id="email-result" readonly></textarea>
-  </div>  <footer>
-    <p>© 2025 Black Haxor Tools</p>
-    <p>Admin: <strong>Md Manik Ahmed</strong></p>
-  </footer>  <script>
-    function searchCVE() {
-      const cve = document.getElementById("cve-id").value;
-      document.getElementById("cve-result").value = `Searching for ${cve}... (demo only)`;
-    }
 
-    function detectXSS() {
-      const url = document.getElementById("xss-input").value;
-      const result = url.includes("<script>") ? "⚠️ Possible XSS detected!" : "✅ Clean (No reflection found).";
-      document.getElementById("xss-result").value = result;
-    }
+<h1>🌐 Black Haxor – Info Tools (10 in 1)</h1>
 
-    function logIP() {
-      fetch("https://api.ipify.org?format=json")
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("ip-log").value = `Your IP: ${data.ip}`;
-        });
-    }
+<!-- 1. IP Info -->
+<div class="tool">
+  <h2>1. IP Info Tool</h2>
+  <button onclick="getIP()">Get My IP Info</button>
+  <pre id="ipinfo"></pre>
+</div>
 
-    document.getElementById("exif-file").addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const binary = e.target.result;
-        document.getElementById("exif-data").value = `File: ${file.name}\nSize: ${file.size} bytes\n(Note: Full EXIF requires advanced parser)`;
-      };
-      reader.readAsBinaryString(file);
+<!-- 2. Phone Info -->
+<div class="tool">
+  <h2>2. Phone Number Info</h2>
+  <input type="text" id="phone" placeholder="Enter phone number (with +880)">
+  <button onclick="getPhoneInfo()">Check Phone Info</button>
+  <pre id="phoneinfo"></pre>
+</div>
+
+<!-- 3. Website Info -->
+<div class="tool">
+  <h2>3. Website IP Info</h2>
+  <input type="text" id="site" placeholder="example.com">
+  <button onclick="getSiteIP()">Get Site Info</button>
+  <pre id="siteinfo"></pre>
+</div>
+
+<!-- 4. Email Validator -->
+<div class="tool">
+  <h2>4. Email Validator</h2>
+  <input type="text" id="email" placeholder="Enter Email">
+  <button onclick="checkEmail()">Validate Email</button>
+  <pre id="emailinfo"></pre>
+</div>
+
+<!-- 5. User Agent -->
+<div class="tool">
+  <h2>5. User Agent Info</h2>
+  <pre id="ua"></pre>
+</div>
+
+<!-- 6. GPS Location -->
+<div class="tool">
+  <h2>6. GPS Location Tool</h2>
+  <button onclick="getGPS()">Get My Location</button>
+  <pre id="gps"></pre>
+</div>
+
+<!-- 7. Whois Lookup -->
+<div class="tool">
+  <h2>7. Whois Lookup</h2>
+  <input type="text" id="whois" placeholder="example.com">
+  <button onclick="getWhois()">Check Whois</button>
+  <pre id="whoisinfo"></pre>
+</div>
+
+<!-- 8. DNS Lookup -->
+<div class="tool">
+  <h2>8. DNS Lookup</h2>
+  <input type="text" id="dns" placeholder="example.com">
+  <button onclick="getDNS()">Get DNS Info</button>
+  <pre id="dnsinfo"></pre>
+</div>
+
+<!-- 9. Port Scanner (Demo) -->
+<div class="tool">
+  <h2>9. Port Scanner (Demo)</h2>
+  <input type="text" id="ipport" placeholder="Enter IP address">
+  <button onclick="scanPorts()">Simulate Scan</button>
+  <pre id="portscan"></pre>
+</div>
+
+<!-- 10. IP Logger (Self Viewer) -->
+<div class="tool">
+  <h2>10. IP Logger Viewer</h2>
+  <button onclick="logMyIP()">Log My IP</button>
+  <pre id="iplog"></pre>
+</div>
+
+<script>
+// 1. IP Info
+function getIP() {
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
     });
+}
 
-    function findEmail() {
-      const name = document.getElementById("name-input").value.toLowerCase();
-      const domains = ["gmail.com", "yahoo.com", "outlook.com"];
-      const guesses = domains.map(domain => `${name}@${domain}`).join("\n");
-      document.getElementById("email-result").value = guesses;
-    }
-  </script></body>
+// 2. Phone Info
+function getPhoneInfo() {
+  let phone = document.getElementById("phone").value;
+  fetch(`https://phonevalidation.abstractapi.com/v1/?api_key=faa7c6e262e743c1a3a5ab62c85f6e26&phone=${phone}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("phoneinfo").textContent = JSON.stringify(data, null, 2);
+    });
+}
 
+// 3. Website Info
+function getSiteIP() {
+  let domain = document.getElementById("site").value;
+  fetch("https://dns.google/resolve?name=" + domain)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("siteinfo").textContent = JSON.stringify(data, null, 2);
+    });
+}
 
-  <!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Black Haxor Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: #000;
-      color: #00ff00;
-      font-family: 'Orbitron', sans-serif;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .tool-box {
-      border: 1px solid #00ff00;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ff00;
-    }
-    input, textarea, button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      background: #111;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      border-radius: 5px;
-    }
-    button:hover {
-      background: #00ff00;
-      color: #000;
-      font-weight: bold;
-    }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid #00ff00;
-    }
-  </style>
-</head>
-<body>
-  <h1>🛡️ Black Haxor Tools</h1>  <!-- BIN Checker -->  <div class="tool-box">
-    <h2>BIN Checker</h2>
-    <input id="bin-input" placeholder="Enter BIN (e.g. 45717360)">
-    <button onclick="checkBIN()">Check BIN</button>
-    <textarea id="bin-result" rows="5" readonly></textarea>
-  </div>  <!-- Temp Mail -->  <div class="tool-box">
-    <h2>Temp Mail Generator</h2>
-    <button onclick="generateTempMail()">Generate Temp Mail</button>
-    <input id="temp-mail" readonly>
-    <button onclick="fetchInbox()">Check Inbox</button>
-    <textarea id="inbox-result" rows="8" readonly></textarea>
-  </div>  <!-- IP Tracker -->  <div class="tool-box">
-    <h2>IP Tracker</h2>
-    <input id="ip-input" placeholder="Enter IP or Domain">
-    <button onclick="trackIP()">Track</button>
-    <textarea id="ip-result" rows="7" readonly></textarea>
-  </div>  <footer>
-    <p>© 2025 Black Haxor Tools</p>
-    <p>Admin: <strong>Md Manik Ahmed</strong></p>
-  </footer>  <script>
-    // BIN Checker
-    function checkBIN() {
-      const bin = document.getElementById("bin-input").value;
-      fetch(`https://lookup.binlist.net/${bin}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("bin-result").value = `Scheme: ${data.scheme}\nType: ${data.type}\nBrand: ${data.brand}\nBank: ${data.bank.name}\nCountry: ${data.country.name}`;
-        }).catch(() => document.getElementById("bin-result").value = "Invalid BIN or not found.");
-    }
+// 4. Email Validator
+function checkEmail() {
+  let email = document.getElementById("email").value;
+  let valid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+  document.getElementById("emailinfo").textContent = valid ? "✅ Valid Email" : "❌ Invalid Email";
+}
 
-    // Temp Mail
-    let tempUser = "";
-    function generateTempMail() {
-      tempUser = Math.random().toString(36).substring(2, 12);
-      document.getElementById("temp-mail").value = `${tempUser}@1secmail.com`;
-    }
-    function fetchInbox() {
-      fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${tempUser}&domain=1secmail.com`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.length === 0) {
-            document.getElementById("inbox-result").value = "Inbox is empty.";
-          } else {
-            let messages = data.map(msg => `From: ${msg.from}\nSubject: ${msg.subject}\nDate: ${msg.date}\n---`).join("\n\n");
-            document.getElementById("inbox-result").value = messages;
-          }
-        });
-    }
+// 5. User Agent
+document.getElementById("ua").textContent = navigator.userAgent;
 
-    // IP Tracker
-    function trackIP() {
-      const ip = document.getElementById("ip-input").value;
-      fetch(`http://ip-api.com/json/${ip}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === "fail") {
-            document.getElementById("ip-result").value = "Invalid IP or domain.";
-          } else {
-            document.getElementById("ip-result").value = `IP: ${data.query}\nCountry: ${data.country}\nRegion: ${data.regionName}\nCity: ${data.city}\nISP: ${data.isp}\nOrg: ${data.org}`;
-          }
-        });
-    }
-  </script></body>
-</html>
+// 6. IP Location
+<div class="tool">
+  <h2>🔥 HOT Tool: IP Tracker + Device Logger</h2>
+  <button onclick="logDevice()">Track Visitor Info</button>
+  <pre id="logoutput"></pre>
+</div>
+
+<script>
+function logDevice() {
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(ip => {
+      let ua = navigator.userAgent;
+      let platform = navigator.platform;
+      let lang = navigator.language;
+      let log = `
+IP: ${ip.ip}
+City: ${ip.city}
+Region: ${ip.region}
+Country: ${ip.country_name}
+ISP: ${ip.org}
+
+Browser: ${ua}
+Platform: ${platform}
+Language: ${lang}
+Timestamp: ${new Date().toLocaleString()}
+`;
+      document.getElementById("logoutput").textContent = log;
+    });
+}
+
+// 7. Whois Lookup
+function getWhois() {
+  let domain = document.getElementById("whois").value;
+  fetch(`https://api.api-ninjas.com/v1/whois?domain=${domain}`, {
+    headers: { 'X-Api-Key': 'aTfUVFgrrZgVCFZ4b6hLwA==' }
+  }).then(res => res.json())
+    .then(data => {
+      document.getElementById("whoisinfo").textContent = JSON.stringify(data, null, 2);
+    });
+}
+
+// 8. DNS Lookup
+function getDNS() {
+  let domain = document.getElementById("dns").value;
+  fetch("https://dns.google/resolve?name=" + domain)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("dnsinfo").textContent = JSON.stringify(data, null, 2);
+    });
+}
+
+// 9. Port Scanner (Fake Demo)
+function scanPorts() {
+  let ip = document.getElementById("ipport").value;
+  document.getElementById("portscan").textContent =
+    `Scanning IP: ${ip} ...\nPort 80 - Open\nPort 443 - Open\nPort 22 - Open\nPort 21 - Closed\n(Simulation Only)`;
+}
+
+// 10. IP Logger (Self Logger)
+function logMyIP() {
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("iplog").textContent = `IP: ${data.ip}\nCity: ${data.city}\nCountry: ${data.country_name}`;
+    });
+}
+
+  // 11. Temporary Email Detector
+
+<div class="tool">
+  <h2>🔥 TEMP Email Checker Tool</h2>
+  <input type="text" id="tempemail" placeholder="Enter email to check">
+  <button onclick="checkTempMail()">Check Email</button>
+  <pre id="tempresult"></pre>
+</div>
+
+<script>
+function checkTempMail() {
+  const email = document.getElementById("tempemail").value;
+  fetch(`https://open.kickbox.com/v1/disposable/${email}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.disposable) {
+        document.getElementById("tempresult").textContent = "❌ Temporary / Disposable Email Detected!";
+      } else {
+        document.getElementById("tempresult").textContent = "✅ Clean Email (Not Temporary)";
+      }
+    });
+}
+</script>
+
+</script>
+
+</body>
 </html>
