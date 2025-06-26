@@ -1,96 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Black Haxor Info Tools</title>
+  <meta charset="UTF-8" />
+  <title>Black Haxor Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { background: #111; color: #eee; font-family: Arial; padding: 20px; }
-    h2 { color: #0ff; border-bottom: 1px solid #333; padding-bottom: 5px; }
-    input, button { padding: 10px; margin: 5px 0; width: 100%; border-radius: 5px; }
-    textarea, pre { background: #222; color: #0f0; padding: 10px; border-radius: 5px; width: 100%; }
-    .tool { margin-bottom: 40px; border: 1px solid #333; padding: 10px; border-radius: 10px; }
+    body {
+      margin: 0; padding: 20px;
+      background-color: #0d0d0d;
+      font-family: 'Poppins', sans-serif;
+      color: #00ffc8;
+    }
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #00ffe7;
+      margin-bottom: 10px;
+    }
+    .admin {
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 30px;
+    }
+    .tool {
+      background: #111;
+      border: 1px solid #00ffc8;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px #00ffc8;
+    }
+    .tool h2 {
+      margin-top: 0;
+      color: #0ff;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      border: none;
+    }
+    input {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    button {
+      background-color: #00ffc8;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00e6b8;
+    }
+    pre {
+      background: #000;
+      padding: 10px;
+      border-radius: 6px;
+      color: #0f0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    #flagimage img {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-<h1>🌐 Black Haxor – Info Tools (10 in 1)</h1>
+<h1>🌐 Black Haxor Tools</h1>
+<div class="admin">👑 ADMIN: MD MANIK AHMED</div>
 
-<!-- 1. IP Info -->
+<!-- 1. IP Info Tool -->
 <div class="tool">
-  <h2>1. IP Info Tool</h2>
+  <h2>1️⃣ IP Info Tool</h2>
   <button onclick="getIP()">Get My IP Info</button>
-  <pre id="ipinfo"></pre>
+  <pre id="ipinfo">Click button to get info...</pre>
 </div>
 
-<!-- 2. Phone Info -->
+<!-- 2. Phone Number Info -->
 <div class="tool">
-  <h2>2. Phone Number Info</h2>
-  <input type="text" id="phone" placeholder="Enter phone number (with +880)">
+  <h2>2️⃣ Phone Number Info</h2>
+  <input type="text" id="phone" placeholder="Enter phone number (e.g. +8801...)">
   <button onclick="getPhoneInfo()">Check Phone Info</button>
   <pre id="phoneinfo"></pre>
 </div>
 
-<!-- 3. Website Info -->
+<!-- 3. Website IP Info -->
 <div class="tool">
-  <h2>3. Website IP Info</h2>
-  <input type="text" id="site" placeholder="example.com">
+  <h2>3️⃣ Website IP Info Tool</h2>
+  <input type="text" id="site" placeholder="Enter website (example.com)">
   <button onclick="getSiteIP()">Get Site Info</button>
   <pre id="siteinfo"></pre>
 </div>
 
 <!-- 4. Email Validator -->
 <div class="tool">
-  <h2>4. Email Validator</h2>
-  <input type="text" id="email" placeholder="Enter Email">
-  <button onclick="checkEmail()">Validate Email</button>
+  <h2>4️⃣ Email Validator</h2>
+  <input type="text" id="email" placeholder="Enter email address">
+  <button onclick="checkEmail()">Validate</button>
   <pre id="emailinfo"></pre>
 </div>
 
-<!-- 5. User Agent -->
+<!-- 5. User Agent Detector -->
 <div class="tool">
-  <h2>5. User Agent Info</h2>
+  <h2>5️⃣ User Agent Info</h2>
   <pre id="ua"></pre>
 </div>
 
 <!-- 6. GPS Location -->
 <div class="tool">
-  <h2>6. GPS Location Tool</h2>
-  <button onclick="getGPS()">Get My Location</button>
+  <h2>6️⃣ GPS Location</h2>
+  <button onclick="getGPS()">Get GPS Location</button>
   <pre id="gps"></pre>
 </div>
 
 <!-- 7. Whois Lookup -->
 <div class="tool">
-  <h2>7. Whois Lookup</h2>
-  <input type="text" id="whois" placeholder="example.com">
+  <h2>7️⃣ Whois Lookup</h2>
+  <input type="text" id="whois" placeholder="Enter domain (example.com)">
   <button onclick="getWhois()">Check Whois</button>
   <pre id="whoisinfo"></pre>
 </div>
 
 <!-- 8. DNS Lookup -->
 <div class="tool">
-  <h2>8. DNS Lookup</h2>
-  <input type="text" id="dns" placeholder="example.com">
+  <h2>8️⃣ DNS Lookup</h2>
+  <input type="text" id="dns" placeholder="Enter domain">
   <button onclick="getDNS()">Get DNS Info</button>
   <pre id="dnsinfo"></pre>
 </div>
 
-<!-- 9. Port Scanner (Demo) -->
+<!-- 9. Port Scanner (Fake) -->
 <div class="tool">
-  <h2>9. Port Scanner (Demo)</h2>
+  <h2>9️⃣ Port Scanner (Demo)</h2>
   <input type="text" id="ipport" placeholder="Enter IP address">
   <button onclick="scanPorts()">Simulate Scan</button>
   <pre id="portscan"></pre>
 </div>
 
-<!-- 10. IP Logger (Self Viewer) -->
+<!-- 10. IP Logger -->
 <div class="tool">
-  <h2>10. IP Logger Viewer</h2>
+  <h2>🔟 IP Logger Viewer</h2>
   <button onclick="logMyIP()">Log My IP</button>
   <pre id="iplog"></pre>
 </div>
 
+<!-- SCRIPT SECTION -->
 <script>
-// 1. IP Info
+document.getElementById("ua").textContent = navigator.userAgent;
+
 function getIP() {
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
@@ -99,7 +163,6 @@ function getIP() {
     });
 }
 
-// 2. Phone Info
 function getPhoneInfo() {
   let phone = document.getElementById("phone").value;
   fetch(`https://phonevalidation.abstractapi.com/v1/?api_key=faa7c6e262e743c1a3a5ab62c85f6e26&phone=${phone}`)
@@ -109,7 +172,6 @@ function getPhoneInfo() {
     });
 }
 
-// 3. Website Info
 function getSiteIP() {
   let domain = document.getElementById("site").value;
   fetch("https://dns.google/resolve?name=" + domain)
@@ -119,59 +181,34 @@ function getSiteIP() {
     });
 }
 
-// 4. Email Validator
 function checkEmail() {
   let email = document.getElementById("email").value;
   let valid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
   document.getElementById("emailinfo").textContent = valid ? "✅ Valid Email" : "❌ Invalid Email";
 }
 
-// 5. User Agent
-document.getElementById("ua").textContent = navigator.userAgent;
-
-// 6. IP Location
-<div class="tool">
-  <h2>🔥 HOT Tool: IP Tracker + Device Logger</h2>
-  <button onclick="logDevice()">Track Visitor Info</button>
-  <pre id="logoutput"></pre>
-</div>
-
-<script>
-function logDevice() {
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(ip => {
-      let ua = navigator.userAgent;
-      let platform = navigator.platform;
-      let lang = navigator.language;
-      let log = `
-IP: ${ip.ip}
-City: ${ip.city}
-Region: ${ip.region}
-Country: ${ip.country_name}
-ISP: ${ip.org}
-
-Browser: ${ua}
-Platform: ${platform}
-Language: ${lang}
-Timestamp: ${new Date().toLocaleString()}
-`;
-      document.getElementById("logoutput").textContent = log;
-    });
+function getGPS() {
+  if (!navigator.geolocation) {
+    document.getElementById("gps").textContent = "❌ GPS Not Supported";
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(pos => {
+    document.getElementById("gps").textContent = 
+      `Latitude: ${pos.coords.latitude}\nLongitude: ${pos.coords.longitude}`;
+  });
 }
 
-// 7. Whois Lookup
 function getWhois() {
   let domain = document.getElementById("whois").value;
   fetch(`https://api.api-ninjas.com/v1/whois?domain=${domain}`, {
     headers: { 'X-Api-Key': 'aTfUVFgrrZgVCFZ4b6hLwA==' }
-  }).then(res => res.json())
+  })
+    .then(res => res.json())
     .then(data => {
       document.getElementById("whoisinfo").textContent = JSON.stringify(data, null, 2);
     });
 }
 
-// 8. DNS Lookup
 function getDNS() {
   let domain = document.getElementById("dns").value;
   fetch("https://dns.google/resolve?name=" + domain)
@@ -181,46 +218,20 @@ function getDNS() {
     });
 }
 
-// 9. Port Scanner (Fake Demo)
 function scanPorts() {
   let ip = document.getElementById("ipport").value;
   document.getElementById("portscan").textContent =
-    `Scanning IP: ${ip} ...\nPort 80 - Open\nPort 443 - Open\nPort 22 - Open\nPort 21 - Closed\n(Simulation Only)`;
+    `Scanning ${ip}...\nPort 80 - Open\nPort 443 - Open\nPort 22 - Closed\n(Demo Only)`;
 }
 
-// 10. IP Logger (Self Logger)
 function logMyIP() {
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
-      document.getElementById("iplog").textContent = `IP: ${data.ip}\nCity: ${data.city}\nCountry: ${data.country_name}`;
+      document.getElementById("iplog").textContent = 
+        `IP: ${data.ip}\nCity: ${data.city}\nCountry: ${data.country_name}\nOrg: ${data.org}`;
     });
 }
-
-  // 11. Temporary Email Detector
-
-<div class="tool">
-  <h2>🔥 TEMP Email Checker Tool</h2>
-  <input type="text" id="tempemail" placeholder="Enter email to check">
-  <button onclick="checkTempMail()">Check Email</button>
-  <pre id="tempresult"></pre>
-</div>
-
-<script>
-function checkTempMail() {
-  const email = document.getElementById("tempemail").value;
-  fetch(`https://open.kickbox.com/v1/disposable/${email}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.disposable) {
-        document.getElementById("tempresult").textContent = "❌ Temporary / Disposable Email Detected!";
-      } else {
-        document.getElementById("tempresult").textContent = "✅ Clean Email (Not Temporary)";
-      }
-    });
-}
-</script>
-
 </script>
 
 </body>
