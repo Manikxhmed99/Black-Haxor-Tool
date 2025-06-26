@@ -5,48 +5,37 @@
   <title>Black Haxor Tools</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
       background-color: #000;
       color: #00ff00;
       font-family: 'Orbitron', sans-serif;
       padding: 20px;
     }
-    header {
+    h1, h2 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
-    .logo {
-      max-width: 150px;
-      margin-bottom: 10px;
-    }
-    h1 {
-      font-size: 2.5em;
-      color: #00ff00;
-    }
-    .tool-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .tool-button {
-      background: #111;
+    .tool-box {
       border: 1px solid #00ff00;
       padding: 15px;
-      text-align: center;
+      margin: 20px 0;
       border-radius: 10px;
       box-shadow: 0 0 10px #00ff00;
-      transition: 0.3s;
-      cursor: pointer;
     }
-    .tool-button:hover {
+    input, textarea, select, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #111;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+    }
+    button:hover {
       background: #00ff00;
       color: #000;
+      font-weight: bold;
     }
     footer {
       margin-top: 40px;
@@ -58,24 +47,68 @@
   </style>
 </head>
 <body>
-  <header>
-    <img class="logo" src="logo.png" alt="Black Haxor Logo" />
-    <h1>Black Haxor Tools</h1>
-  </header>  <section class="tool-list">
-    <div class="tool-button">CC Generator</div>
-    <div class="tool-button">BIN Checker</div>
-    <div class="tool-button">Live CC Checker</div>
-    <div class="tool-button">IP Tracker</div>
-    <div class="tool-button">Email Spoofer</div>
-    <div class="tool-button">User Agent Finder</div>
-    <div class="tool-button">Port Scanner</div>
-    <div class="tool-button">Base64 Encoder</div>
-    <div class="tool-button">Hash Generator</div>
-    <div class="tool-button">Temp Mail</div>
-    <!-- Add more tools as needed -->
-  </section>  <footer>
+  <h1>🛡️ Black Haxor Tools</h1>  <div class="tool-box">
+    <h2>CVE Info Search</h2>
+    <input id="cve-id" placeholder="Enter CVE ID (e.g. CVE-2021-34527)">
+    <button onclick="searchCVE()">Search CVE</button>
+    <textarea id="cve-result" rows="4" readonly></textarea>
+  </div>  <div class="tool-box">
+    <h2>Reflected XSS Detector</h2>
+    <input id="xss-input" placeholder="Enter suspicious URL">
+    <button onclick="detectXSS()">Detect XSS</button>
+    <textarea id="xss-result" readonly></textarea>
+  </div>  <div class="tool-box">
+    <h2>IP Logger</h2>
+    <button onclick="logIP()">Log My IP</button>
+    <textarea id="ip-log" readonly></textarea>
+  </div>  <div class="tool-box">
+    <h2>EXIF Viewer</h2>
+    <input type="file" id="exif-file" accept="image/*">
+    <textarea id="exif-data" readonly></textarea>
+  </div>  <div class="tool-box">
+    <h2>Email Finder</h2>
+    <input id="name-input" placeholder="Enter name or username">
+    <button onclick="findEmail()">Find Email</button>
+    <textarea id="email-result" readonly></textarea>
+  </div>  <footer>
     <p>© 2025 Black Haxor Tools</p>
     <p>Admin: <strong>Md Manik Ahmed</strong></p>
-  </footer>
-</body>
+  </footer>  <script>
+    function searchCVE() {
+      const cve = document.getElementById("cve-id").value;
+      document.getElementById("cve-result").value = `Searching for ${cve}... (demo only)`;
+    }
+
+    function detectXSS() {
+      const url = document.getElementById("xss-input").value;
+      const result = url.includes("<script>") ? "⚠️ Possible XSS detected!" : "✅ Clean (No reflection found).";
+      document.getElementById("xss-result").value = result;
+    }
+
+    function logIP() {
+      fetch("https://api.ipify.org?format=json")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("ip-log").value = `Your IP: ${data.ip}`;
+        });
+    }
+
+    document.getElementById("exif-file").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const binary = e.target.result;
+        document.getElementById("exif-data").value = `File: ${file.name}\nSize: ${file.size} bytes\n(Note: Full EXIF requires advanced parser)`;
+      };
+      reader.readAsBinaryString(file);
+    });
+
+    function findEmail() {
+      const name = document.getElementById("name-input").value.toLowerCase();
+      const domains = ["gmail.com", "yahoo.com", "outlook.com"];
+      const guesses = domains.map(domain => `${name}@${domain}`).join("\n");
+      document.getElementById("email-result").value = guesses;
+    }
+  </script></body>
 </html>
