@@ -111,4 +111,118 @@
       document.getElementById("email-result").value = guesses;
     }
   </script></body>
+
+
+  <!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Haxor Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Orbitron', sans-serif;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .tool-box {
+      border: 1px solid #00ff00;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ff00;
+    }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #111;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #00ff00;
+      color: #000;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛡️ Black Haxor Tools</h1>  <!-- BIN Checker -->  <div class="tool-box">
+    <h2>BIN Checker</h2>
+    <input id="bin-input" placeholder="Enter BIN (e.g. 45717360)">
+    <button onclick="checkBIN()">Check BIN</button>
+    <textarea id="bin-result" rows="5" readonly></textarea>
+  </div>  <!-- Temp Mail -->  <div class="tool-box">
+    <h2>Temp Mail Generator</h2>
+    <button onclick="generateTempMail()">Generate Temp Mail</button>
+    <input id="temp-mail" readonly>
+    <button onclick="fetchInbox()">Check Inbox</button>
+    <textarea id="inbox-result" rows="8" readonly></textarea>
+  </div>  <!-- IP Tracker -->  <div class="tool-box">
+    <h2>IP Tracker</h2>
+    <input id="ip-input" placeholder="Enter IP or Domain">
+    <button onclick="trackIP()">Track</button>
+    <textarea id="ip-result" rows="7" readonly></textarea>
+  </div>  <footer>
+    <p>© 2025 Black Haxor Tools</p>
+    <p>Admin: <strong>Md Manik Ahmed</strong></p>
+  </footer>  <script>
+    // BIN Checker
+    function checkBIN() {
+      const bin = document.getElementById("bin-input").value;
+      fetch(`https://lookup.binlist.net/${bin}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("bin-result").value = `Scheme: ${data.scheme}\nType: ${data.type}\nBrand: ${data.brand}\nBank: ${data.bank.name}\nCountry: ${data.country.name}`;
+        }).catch(() => document.getElementById("bin-result").value = "Invalid BIN or not found.");
+    }
+
+    // Temp Mail
+    let tempUser = "";
+    function generateTempMail() {
+      tempUser = Math.random().toString(36).substring(2, 12);
+      document.getElementById("temp-mail").value = `${tempUser}@1secmail.com`;
+    }
+    function fetchInbox() {
+      fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${tempUser}&domain=1secmail.com`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) {
+            document.getElementById("inbox-result").value = "Inbox is empty.";
+          } else {
+            let messages = data.map(msg => `From: ${msg.from}\nSubject: ${msg.subject}\nDate: ${msg.date}\n---`).join("\n\n");
+            document.getElementById("inbox-result").value = messages;
+          }
+        });
+    }
+
+    // IP Tracker
+    function trackIP() {
+      const ip = document.getElementById("ip-input").value;
+      fetch(`http://ip-api.com/json/${ip}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "fail") {
+            document.getElementById("ip-result").value = "Invalid IP or domain.";
+          } else {
+            document.getElementById("ip-result").value = `IP: ${data.query}\nCountry: ${data.country}\nRegion: ${data.regionName}\nCity: ${data.city}\nISP: ${data.isp}\nOrg: ${data.org}`;
+          }
+        });
+    }
+  </script></body>
+</html>
 </html>
