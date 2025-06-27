@@ -1,238 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Black Haxor Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>BLACK HAXOR TOOLS UNLIMITED GMAIL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      margin: 0; padding: 20px;
-      background-color: #0d0d0d;
-      font-family: 'Poppins', sans-serif;
-      color: #00ffc8;
+      background: #0f0f0f;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      margin: 0; padding: 0;
     }
-    h1 {
-      text-align: center;
-      font-size: 36px;
-      color: #00ffe7;
-      margin-bottom: 10px;
-    }
-    .admin {
-      text-align: center;
-      font-weight: bold;
-      font-size: 14px;
-      color: #999;
-      margin-bottom: 30px;
-    }
-    .tool {
-      background: #111;
-      border: 1px solid #00ffc8;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 20px #00ffc8;
-    }
-    .tool h2 {
-      margin-top: 0;
-      color: #0ff;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      font-size: 16px;
-      border: none;
-    }
-    input {
-      background: #1a1a1a;
-      color: #fff;
-    }
-    button {
-      background-color: #00ffc8;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00e6b8;
-    }
-    pre {
-      background: #000;
-      padding: 10px;
-      border-radius: 6px;
-      color: #0f0;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    #flagimage img {
-      margin-top: 10px;
-    }
+    header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid #00ff99; }
+    header h1 { color: #00ffcc; text-shadow: 0 0 5px #00ffcc; animation: glitch 1s infinite linear alternate-reverse; }
+    @keyframes glitch { 0% { text-shadow: 0 0 5px #00ffcc; } 100% { text-shadow: 0 0 10px #00ffaa, 2px 2px #ff00ff; } }
+    .container { max-width: 800px; margin: auto; padding: 30px 20px; }
+    input, textarea { width: 100%; padding: 12px 15px; background: #0c0c0c; border: 2px solid #00ff99; border-radius: 6px;
+      color: #00ffcc; font-size: 16px; box-shadow: 0 0 10px #00ff88; margin-bottom: 10px; transition: 0.3s; }
+    input::placeholder { color: #00ffcc; text-shadow: 0 0 3px #00ffaa; }
+    button { padding: 10px; margin: 10px 0; border-radius: 5px; border: none; font-family: 'Courier New', monospace;
+      background: #00ff99; color: #000; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px #00ff88;
+      transition: 0.3s; width: 100%; font-size: 16px; }
+    button:hover { box-shadow: 0 0 20px #00ffaa; }
+    textarea { height: 200px; resize: vertical; }
+    .footer { text-align: center; font-size: 0.9em; color: #888; margin-top: 20px; }
   </style>
 </head>
 <body>
+  <header><h1>BLACK HAXOR TOOLS UNLIMITED GMAIL</h1></header>
+  <div class="container">
+    <input type="text" id="gmail" placeholder="Enter Gmail (e.g. johndoe@gmail.com)" />
+    <input type="text" id="count" placeholder="Enter Count (e.g. 50)" />
+    <input type="text" id="pass" placeholder="Enter Password" />
+    <button onclick="generate()">⚡ Generate</button>
+    <button onclick="copy()">📋 Copy All</button>
+    <button onclick="saveFile()">💾 Save as TXT</button>
+    <textarea id="output" readonly></textarea>
+    <div class="footer">🚀 Powered by <strong>Black Haxor Tools</strong> | Admin: MD MANIK AHMED</div>
+  </div>
 
-<h1>🌐 Black Haxor Tools</h1>
-<div class="admin">👑 ADMIN: MD MANIK AHMED</div>
+  <script>
+    function generate() {
+      const email = document.getElementById("gmail").value.trim();
+      const count = parseInt(document.getElementById("count").value.trim()) || 50;
+      const pass = document.getElementById("pass").value.trim();
+      const parts = email.split("@");
+      if (parts.length !== 2 || parts[1] !== "gmail.com") {
+        alert("Only Gmail supported.");
+        return;
+      }
+      const base = parts[0].replace(/\./g, '');
+      let used = new Set(), output = [];
+      while (output.length < count) {
+        const randomNum = Math.floor(100 + Math.random() * 9999);
+        const variant = `${base}${randomNum}@gmail.com`;
+        if (!used.has(variant)) {
+          used.add(variant);
+          output.push(`${variant} | ${pass} | Count: ${count}`);
+        }
+      }
+      document.getElementById("output").value = output.join("\n");
+    }
 
-<!-- 1. IP Info Tool -->
-<div class="tool">
-  <h2>1️⃣ IP Info Tool</h2>
-  <button onclick="getIP()">Get My IP Info</button>
-  <pre id="ipinfo">Click button to get info...</pre>
-</div>
+    function copy() {
+      const o = document.getElementById("output");
+      o.select();
+      document.execCommand("copy");
+      alert("✅ Copied!");
+    }
 
-<!-- 2. Phone Number Info -->
-<div class="tool">
-  <h2>2️⃣ Phone Number Info</h2>
-  <input type="text" id="phone" placeholder="Enter phone number (e.g. +8801...)">
-  <button onclick="getPhoneInfo()">Check Phone Info</button>
-  <pre id="phoneinfo"></pre>
-</div>
-
-<!-- 3. Website IP Info -->
-<div class="tool">
-  <h2>3️⃣ Website IP Info Tool</h2>
-  <input type="text" id="site" placeholder="Enter website (example.com)">
-  <button onclick="getSiteIP()">Get Site Info</button>
-  <pre id="siteinfo"></pre>
-</div>
-
-<!-- 4. Email Validator -->
-<div class="tool">
-  <h2>4️⃣ Email Validator</h2>
-  <input type="text" id="email" placeholder="Enter email address">
-  <button onclick="checkEmail()">Validate</button>
-  <pre id="emailinfo"></pre>
-</div>
-
-<!-- 5. User Agent Detector -->
-<div class="tool">
-  <h2>5️⃣ User Agent Info</h2>
-  <pre id="ua"></pre>
-</div>
-
-<!-- 6. GPS Location -->
-<div class="tool">
-  <h2>6️⃣ GPS Location</h2>
-  <button onclick="getGPS()">Get GPS Location</button>
-  <pre id="gps"></pre>
-</div>
-
-<!-- 7. Whois Lookup -->
-<div class="tool">
-  <h2>7️⃣ Whois Lookup</h2>
-  <input type="text" id="whois" placeholder="Enter domain (example.com)">
-  <button onclick="getWhois()">Check Whois</button>
-  <pre id="whoisinfo"></pre>
-</div>
-
-<!-- 8. DNS Lookup -->
-<div class="tool">
-  <h2>8️⃣ DNS Lookup</h2>
-  <input type="text" id="dns" placeholder="Enter domain">
-  <button onclick="getDNS()">Get DNS Info</button>
-  <pre id="dnsinfo"></pre>
-</div>
-
-<!-- 9. Port Scanner (Fake) -->
-<div class="tool">
-  <h2>9️⃣ Port Scanner (Demo)</h2>
-  <input type="text" id="ipport" placeholder="Enter IP address">
-  <button onclick="scanPorts()">Simulate Scan</button>
-  <pre id="portscan"></pre>
-</div>
-
-<!-- 10. IP Logger -->
-<div class="tool">
-  <h2>🔟 IP Logger Viewer</h2>
-  <button onclick="logMyIP()">Log My IP</button>
-  <pre id="iplog"></pre>
-</div>
-
-<!-- SCRIPT SECTION -->
-<script>
-document.getElementById("ua").textContent = navigator.userAgent;
-
-function getIP() {
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
-    });
-}
-
-function getPhoneInfo() {
-  let phone = document.getElementById("phone").value;
-  fetch(`https://phonevalidation.abstractapi.com/v1/?api_key=faa7c6e262e743c1a3a5ab62c85f6e26&phone=${phone}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("phoneinfo").textContent = JSON.stringify(data, null, 2);
-    });
-}
-
-function getSiteIP() {
-  let domain = document.getElementById("site").value;
-  fetch("https://dns.google/resolve?name=" + domain)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("siteinfo").textContent = JSON.stringify(data, null, 2);
-    });
-}
-
-function checkEmail() {
-  let email = document.getElementById("email").value;
-  let valid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
-  document.getElementById("emailinfo").textContent = valid ? "✅ Valid Email" : "❌ Invalid Email";
-}
-
-function getGPS() {
-  if (!navigator.geolocation) {
-    document.getElementById("gps").textContent = "❌ GPS Not Supported";
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(pos => {
-    document.getElementById("gps").textContent = 
-      `Latitude: ${pos.coords.latitude}\nLongitude: ${pos.coords.longitude}`;
-  });
-}
-
-function getWhois() {
-  let domain = document.getElementById("whois").value;
-  fetch(`https://api.api-ninjas.com/v1/whois?domain=${domain}`, {
-    headers: { 'X-Api-Key': 'aTfUVFgrrZgVCFZ4b6hLwA==' }
-  })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("whoisinfo").textContent = JSON.stringify(data, null, 2);
-    });
-}
-
-function getDNS() {
-  let domain = document.getElementById("dns").value;
-  fetch("https://dns.google/resolve?name=" + domain)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("dnsinfo").textContent = JSON.stringify(data, null, 2);
-    });
-}
-
-function scanPorts() {
-  let ip = document.getElementById("ipport").value;
-  document.getElementById("portscan").textContent =
-    `Scanning ${ip}...\nPort 80 - Open\nPort 443 - Open\nPort 22 - Closed\n(Demo Only)`;
-}
-
-function logMyIP() {
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("iplog").textContent = 
-        `IP: ${data.ip}\nCity: ${data.city}\nCountry: ${data.country_name}\nOrg: ${data.org}`;
-    });
-}
-</script>
-
+    function saveFile() {
+      const blob = new Blob([document.getElementById("output").value], {type:'text/plain'});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "gmail_variants.txt";
+      a.click();
+    }
+  </script>
 </body>
 </html>
